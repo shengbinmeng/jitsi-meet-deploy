@@ -85,8 +85,7 @@ if [ "${err}" -ne 0 ]; then exit "${err}"; fi
 
 apt-get install default-jre
 
-mkdir -p /opt && cp -r jitsi-videobridge /opt/
-mkdir -p /opt && cp -r jicofo /opt/
+mkdir -p /opt && cp -r jitsi-videobridge /opt/ && cp -r jicofo /opt/
 
 echo org.jitsi.impl.neomedia.transform.srtp.SRTPCryptoContext.checkReplay=false > sip-communicator.properties
 mkdir -p ~/.sip-communicator && cp sip-communicator.properties ~/.sip-communicator/
@@ -94,6 +93,8 @@ mkdir -p ~/.sip-communicator && cp sip-communicator.properties ~/.sip-communicat
 # Clean up
 
 rm $DOMAIN_NAME.cfg.lua $DOMAIN_NAME sip-communicator.properties
+
+# Run
 
 /opt/jitsi-videobridge/jvb.sh --host=localhost --domain=$DOMAIN_NAME --port=5347 --secret=$YOURSECRET1 &
 /opt/jicofo/jicofo.sh --domain=$DOMAIN_NAME --secret=$YOURSECRET2 --user_domain=auth.$DOMAIN_NAME --user_name=focus --user_password=$YOURSECRET3 &
